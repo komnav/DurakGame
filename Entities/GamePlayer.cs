@@ -1,6 +1,4 @@
-using Durak.Entities;
-
-namespace Durak.Entities;
+namespace DurakGame.Entities;
 
 public class GamePlayer
 {

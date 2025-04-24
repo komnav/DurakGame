@@ -1,4 +1,4 @@
-namespace Durak.Exceptions;
+namespace DurakGame.Exceptions;
 
 public enum PlayerInvalidRequestExceptionCodes
 {

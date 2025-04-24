@@ -1,6 +1,6 @@
-using Durak.Entities;
+using DurakGame.Entities;
 
-namespace Durak.Requests;
+namespace DurakGame.Requests;
 
 public class DefendingActionRequest
 {

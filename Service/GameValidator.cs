@@ -1,21 +1,28 @@
-using Durak.Entities;
-using Durak.Entities.Enum;
-using Durak.Exceptions;
-using Durak.Requests;
+using DurakGame.Entities;
+using DurakGame.Entities.Enum;
+using DurakGame.Exceptions;
+using DurakGame.Requests;
 
-namespace Durak.Service;
+namespace DurakGame.Service;
 
 public sealed class GameValidator : IGameValidator
 {
-    public void ValidateAttackerRequest(AttackerActionRequest request, Game game)
+    public void ValidateAttackerRequest(
+        AttackerActionRequest request,
+        Game game)
     {
         if (game.CurrentAction != GameAction.AttackerAction)
         {
             throw new PlayerInvalidRequestException(PlayerInvalidRequestExceptionCodes.GameActionNotValid);
         }
 
-        if (request.Cards.FirstOrDefault() != game.Attacker.Hand.FirstOrDefault() &&
-            request.Action != AttackerActionType.Beat)
+        var requestAttacker = request.Cards.FirstOrDefault();
+
+        var isValidCardRequested = game.Attacker.Hand.Any(
+            x => x.Rank == requestAttacker?.Rank
+                 && x.Suit == requestAttacker?.Suit);
+
+        if (isValidCardRequested != true)
         {
             throw new PlayerInvalidRequestException(PlayerInvalidRequestExceptionCodes.CardsNotValid);
         }
@@ -28,15 +35,21 @@ public sealed class GameValidator : IGameValidator
             throw new PlayerInvalidRequestException(PlayerInvalidRequestExceptionCodes.GameActionNotValid);
         }
 
-        if (request.Cards.FirstOrDefault() != game.Defender.Hand.FirstOrDefault() &&
-            request.Action != DefendingActionType.Take)
+        var requestDefender = request.Cards.FirstOrDefault();
+
+        var isValidCardRequested = game.Defender.Hand.Any(
+            x => x.Rank == requestDefender?.Rank
+                 && x.Suit == requestDefender?.Suit);
+
+        if (isValidCardRequested != true)
         {
             throw new PlayerInvalidRequestException(PlayerInvalidRequestExceptionCodes.CardsNotValid);
         }
 
         var fieldCards = game.FieldCards.FirstOrDefault();
 
-        if (fieldCards == null) throw new PlayerInvalidRequestException(PlayerInvalidRequestExceptionCodes.NotCardsInField);
+        if (fieldCards == null)
+            throw new PlayerInvalidRequestException(PlayerInvalidRequestExceptionCodes.NotCardsInField);
 
         foreach (var requestCard in request.Cards)
         {

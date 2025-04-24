@@ -1,7 +1,6 @@
-using Durak.Entities.Enum;
-using Durak.Entities;
+using DurakGame.Entities.Enum;
 
-namespace Durak.Entities;
+namespace DurakGame.Entities;
 
 public class Game
 {

@@ -1,4 +1,4 @@
-namespace Durak.Requests;
+namespace DurakGame.Requests;
 
 public enum AttackerActionType
 {

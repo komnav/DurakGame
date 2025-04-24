@@ -1,7 +1,7 @@
-using Durak.Entities;
-using Durak.Requests;
+using DurakGame.Entities;
+using DurakGame.Requests;
 
-namespace Durak.Service;
+namespace DurakGame.Service;
 
 public interface IGameValidator
 {

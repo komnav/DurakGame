@@ -1,8 +1,8 @@
-using Durak.Entities;
-using Durak.Entities.Enum;
-using Durak.Requests;
+using DurakGame.Entities;
+using DurakGame.Entities.Enum;
+using DurakGame.Requests;
 
-namespace Durak.Service;
+namespace DurakGame.Service;
 
 public class GameService : IGameService
 {
@@ -17,9 +17,9 @@ public class GameService : IGameService
 
         _deck = new Deck();
 
-        _game.Player1 = new GamePlayer { Player = player1, Hand = new List<Card>() };
+        _game.Player1 = new GamePlayer { Player = player1, Hand = [] };
 
-        _game.Player2 = new GamePlayer { Player = player2, Hand = new List<Card>() };
+        _game.Player2 = new GamePlayer { Player = player2, Hand = [] };
 
         DistributeCards();
 
@@ -45,7 +45,7 @@ public class GameService : IGameService
             deck.RemoveAt(0);
 
             var card2 = deck.First();
-            _game.Player2.Hand.Add(card1);
+            _game.Player2.Hand.Add(card2);
             _game.Deck.DeleteCard(card2);
             deck.RemoveAt(0);
         }
@@ -64,22 +64,6 @@ public class GameService : IGameService
 
     public void AttackerAction(AttackerActionRequest request)
     {
-        _gameValidator.ValidateAttackerRequest(request, _game);
-
-        if (request.Action != AttackerActionType.Beat)
-        {
-            var cardsAttackerRequest = request.Cards;
-
-            _game.FieldCards.AddRange(cardsAttackerRequest);
-
-            foreach (var requestCard in cardsAttackerRequest)
-            {
-                _game.Attacker.Hand.Remove(requestCard);
-            }
-
-            _game.CurrentAction = GameAction.DefendAction;
-        }
-
         if (request.Action == AttackerActionType.Beat)
         {
             _game.Beat = _game.FieldCards;
@@ -90,7 +74,21 @@ public class GameService : IGameService
             ExcitementOfTheHandAttacker();
             ExcitementOfTheHandDefending();
             _game.CurrentAction = GameAction.AttackerAction;
+            return;
         }
+
+        _gameValidator.ValidateAttackerRequest(request, _game);
+        var cardsAttackerRequest = request.Cards;
+        _game.FieldCards.AddRange(cardsAttackerRequest);
+
+        foreach (var requestCard in cardsAttackerRequest)
+        {
+            _game.Attacker.Hand.RemoveAll(
+                x => x.Suit == requestCard.Suit
+                     && x.Rank == requestCard.Rank);
+        }
+
+        _game.CurrentAction = GameAction.DefendAction;
     }
 
     public void DefenderAction(DefendingActionRequest request)
@@ -103,7 +101,8 @@ public class GameService : IGameService
             _game.FieldCards.AddRange(cardsDefendingRequest);
             foreach (var requestCard in cardsDefendingRequest)
             {
-                _game.Defender.Hand.Remove(requestCard);
+                _game.Defender.Hand
+                    .RemoveAll(x => x.Suit == requestCard.Suit && x.Rank == requestCard.Rank);
             }
 
             _game.CurrentAction = GameAction.AttackerAction;
@@ -151,7 +150,7 @@ public class GameService : IGameService
         foreach (var cardAttacker in _game.Attacker.Hand)
         {
             Console.WriteLine(
-                $"Cards attacker: {_game.Attacker.Player.Name} = > {cardAttacker.Rank} ({cardAttacker.Suit})");
+                $"Cards attacker:{cardAttacker.Id} {_game.Attacker.Player.Name} = > {cardAttacker.Rank} ({cardAttacker.Suit})");
         }
 
         Console.WriteLine("_________________________");

@@ -1,4 +1,4 @@
-namespace Durak.Entities.Enum;
+namespace DurakGame.Entities.Enum;
 
 public enum Rank
 {
