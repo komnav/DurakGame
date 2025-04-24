@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Durak.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ca35b02e84359a8717edde3c26f37b0c084a39e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Durak.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Durak.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

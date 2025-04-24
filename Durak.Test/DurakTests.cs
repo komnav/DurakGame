@@ -1,10 +1,10 @@
-using Durak.Entities;
-using Durak.Entities.Enum;
-using Durak.Requests;
-using Durak.Service;
+using DurakGame.Entities;
+using DurakGame.Entities.Enum;
+using DurakGame.Requests;
+using DurakGame.Service;
 using FluentAssertions;
 
-namespace Durak.Tests;
+namespace Durak.Test;
 
 public class DurakTests
 {
