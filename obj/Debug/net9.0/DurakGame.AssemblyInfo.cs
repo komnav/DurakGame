@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DurakGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff768dd2de09587b4455c76eb5c0f703777bd8f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3333d6bedbec95a9e0bcd7ece806f638300836b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("DurakGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DurakGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
